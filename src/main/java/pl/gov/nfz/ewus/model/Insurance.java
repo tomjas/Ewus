@@ -1,4 +1,4 @@
-package pl.gov.nfz.ewus.rest;
+package pl.gov.nfz.ewus.model;
 
 public enum Insurance {
 

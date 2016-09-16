@@ -10,16 +10,22 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-import pl.gov.nfz.ewus.rest.Insurance;
-
+@Table(name = "ewus_person")
 @Entity
+@NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "SELECT p Person p WHERE p.pesel = :pesel"),
+		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p Person p WHERE p.id = :id") })
 public class Person implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7786622396480067538L;
+	public static final String GET_BY_PESEL = "getByPesel";
+	public static final String GET_BY_ID = "getById";
 
 	public Person() {
 		// TODO Auto-generated constructor stub

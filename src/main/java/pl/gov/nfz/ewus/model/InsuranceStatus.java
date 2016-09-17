@@ -1,6 +1,6 @@
 package pl.gov.nfz.ewus.model;
 
-public enum Insurance {
+public enum InsuranceStatus {
 
 	YES, NO, UNDEFINED;
 

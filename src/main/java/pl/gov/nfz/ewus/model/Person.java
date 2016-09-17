@@ -1,6 +1,7 @@
 package pl.gov.nfz.ewus.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,11 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Table(name = "ewus_person")
 @Entity
-@NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "SELECT p Person p WHERE p.pesel = :pesel"),
-		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p Person p WHERE p.id = :id") })
+@NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "SELECT p FROM Person p WHERE p.pesel = :pesel"),
+		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p FROM Person p WHERE p.id = :id") })
 public class Person implements Serializable {
 
 	/**
@@ -31,18 +36,21 @@ public class Person implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Column(name = "id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	private Long id;
 
 	@Column(name = "pesel", length = 11)
+	@NotBlank
 	private Long pesel;
 
 	@Column(name = "first_name")
+	@NotBlank
 	private String firstName;
 
 	@Column(name = "last_name")
+	@NotBlank
 	private String lastName;
 
 	@Embedded
@@ -53,7 +61,19 @@ public class Person implements Serializable {
 
 	@Column(name = "is_insured")
 	@Enumerated(EnumType.STRING)
-	private Insurance insured;
+	private InsuranceStatus insuranceStatus;
+
+	@Column(name = "date_of_birth")
+	@Temporal(TemporalType.TIMESTAMP)
+	@NotBlank
+	private Date dateOfBirth;
+
+	@Column(name = "date_of_die")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfDie;
+
+	@Column(name = "is_living")
+	private Boolean living;
 
 	public Long getId() {
 		return id;
@@ -103,12 +123,12 @@ public class Person implements Serializable {
 		this.role = role;
 	}
 
-	public Insurance getInsured() {
-		return insured;
+	public InsuranceStatus getInsuranceStatus() {
+		return insuranceStatus;
 	}
 
-	public void setInsured(Insurance insured) {
-		this.insured = insured;
+	public void setInsuranceStatus(InsuranceStatus insuranceStatus) {
+		this.insuranceStatus = insuranceStatus;
 	}
 
 }

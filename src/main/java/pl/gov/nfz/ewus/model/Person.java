@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Table(name = "ewus_person")
@@ -47,7 +48,8 @@ public class Person implements Serializable {
 
 	@Column(name = "pesel", length = 11)
 	@NotBlank
-	private Long pesel;
+	@Length(min = 11, max = 11)
+	private String pesel;
 
 	@Column(name = "first_name")
 	@NotBlank
@@ -77,7 +79,7 @@ public class Person implements Serializable {
 	private Date dateOfDie;
 
 	@Column(name = "is_living")
-	private Boolean living;
+	private boolean living;
 
 	public Long getId() {
 		return id;
@@ -85,14 +87,6 @@ public class Person implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getPesel() {
-		return pesel;
-	}
-
-	public void setPesel(Long pesel) {
-		this.pesel = pesel;
 	}
 
 	public String getFirstName() {
@@ -133,6 +127,38 @@ public class Person implements Serializable {
 
 	public void setInsuranceStatus(InsuranceStatus insuranceStatus) {
 		this.insuranceStatus = insuranceStatus;
+	}
+
+	public String getPesel() {
+		return pesel;
+	}
+
+	public void setPesel(String pesel) {
+		this.pesel = pesel;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Date getDateOfDie() {
+		return dateOfDie;
+	}
+
+	public void setDateOfDie(Date dateOfDie) {
+		this.dateOfDie = dateOfDie;
+	}
+
+	public boolean isLiving() {
+		return living;
+	}
+
+	public void setLiving(boolean living) {
+		this.living = living;
 	}
 
 }

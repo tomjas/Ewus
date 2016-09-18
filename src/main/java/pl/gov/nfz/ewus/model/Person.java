@@ -36,6 +36,10 @@ public class Person implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public enum Sex {
+		MALE, FEMALE, UNDEFINED;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")

@@ -6,5 +6,4 @@ import pl.gov.nfz.ewus.model.Person;
 
 @Repository
 public class PersonDaoImpl extends GenericDaoImpl<Person> implements PersonDao {
-
 }

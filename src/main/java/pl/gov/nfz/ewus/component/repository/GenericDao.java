@@ -7,7 +7,7 @@ import java.util.Map;
 public interface GenericDao<T extends Serializable> {
 
 	long countAll(Map<String, Object> params);
-	
+
 	List<T> getAll();
 
 	T create(T t);

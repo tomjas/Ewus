@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import pl.gov.nfz.ewus.component.PeselValidator;
 import pl.gov.nfz.ewus.component.repository.PersonDao;
+import pl.gov.nfz.ewus.exception.AmbiguousPeselException;
 import pl.gov.nfz.ewus.exception.IllegalPeselNumberException;
 import pl.gov.nfz.ewus.exception.NoSuchPersonException;
 import pl.gov.nfz.ewus.model.InsuranceStatus;
@@ -36,7 +37,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public Person update(final Person person) {
-		// TODO Auto-generated method stub
+		verifyPesel(person.getPesel());
 		return null;
 	}
 
@@ -44,13 +45,22 @@ public class PersonServiceImpl implements PersonService {
 	public InsuranceStatus getInsuranceStatus(final String pesel) {
 		verifyPesel(pesel);
 		TypedQuery<Person> query = em.createNamedQuery(Person.GET_BY_PESEL, Person.class);
-		query.setParameter("pesel", Long.parseLong(pesel));
+		query.setParameter("pesel", pesel);
 		List<Person> list = query.getResultList();
+
+		checkSinglePersonList(list);
+
+		return list.get(0).getInsuranceStatus();
+	}
+
+	public void checkSinglePersonList(List<Person> list) {
 		if (list.isEmpty()) {
 			throw new NoSuchPersonException();
 		}
 
-		return list.get(0).getInsuranceStatus();
+		if (list.size() > 1) {
+			throw new AmbiguousPeselException();
+		}
 	}
 
 	@Override

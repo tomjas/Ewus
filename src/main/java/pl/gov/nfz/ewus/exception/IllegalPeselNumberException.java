@@ -1,5 +1,9 @@
 package pl.gov.nfz.ewus.exception;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 public class IllegalPeselNumberException extends RuntimeException {
 
 	/**

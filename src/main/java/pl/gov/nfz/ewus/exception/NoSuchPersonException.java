@@ -1,5 +1,9 @@
 package pl.gov.nfz.ewus.exception;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 public class NoSuchPersonException extends RuntimeException {
 
 	/**

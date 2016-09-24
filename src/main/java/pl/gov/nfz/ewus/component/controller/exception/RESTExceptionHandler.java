@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import pl.gov.nfz.ewus.exception.AmbiguousPeselException;
 import pl.gov.nfz.ewus.exception.ErrorResponse;
 import pl.gov.nfz.ewus.exception.IllegalPeselNumberException;
 import pl.gov.nfz.ewus.exception.NoSuchPersonException;
@@ -23,6 +24,10 @@ public class RESTExceptionHandler {
 
 		if (e instanceof IllegalPeselNumberException) {
 			error.setCode(-201);
+		}
+		
+		if (e instanceof AmbiguousPeselException) {
+			error.setCode(-202);
 		}
 
 		error.setMessage(e.getMessage());

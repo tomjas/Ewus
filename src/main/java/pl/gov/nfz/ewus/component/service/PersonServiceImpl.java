@@ -38,6 +38,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person update(final Person person) {
 		verifyPesel(person.getPesel());
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -53,7 +54,7 @@ public class PersonServiceImpl implements PersonService {
 		return list.get(0).getInsuranceStatus();
 	}
 
-	public void checkSinglePersonList(List<Person> list) {
+	public void checkSinglePersonList(final List<Person> list) {
 		if (list.isEmpty()) {
 			throw new NoSuchPersonException();
 		}
@@ -71,7 +72,7 @@ public class PersonServiceImpl implements PersonService {
 	public void verifyPesel(final String pesel) {
 		peselValidator.validate(pesel);
 		if (!peselValidator.isValid()) {
-			throw new IllegalPeselNumberException("Invalid pesel number!");
+			throw new IllegalPeselNumberException();
 		}
 
 	}

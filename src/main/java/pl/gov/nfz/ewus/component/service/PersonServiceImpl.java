@@ -2,9 +2,6 @@ package pl.gov.nfz.ewus.component.service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,45 +13,39 @@ import pl.gov.nfz.ewus.exception.NoSuchPersonException;
 import pl.gov.nfz.ewus.model.InsuranceStatus;
 import pl.gov.nfz.ewus.model.Person;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 @Service
 public class PersonServiceImpl implements PersonService {
 
 	@Autowired
-	PersonDao personDao;
+	private PersonDao personDao;
 
 	@Autowired
 	private PeselValidator peselValidator;
 
-	// TODO Dodać entitymanagera
-	// @PersistenceContext
-	EntityManager em;
-
 	@Override
-	public Person register(final Person person) {
-		// TODO Auto-generated method stub
-		return null;
+	public Person registerPerson(final Person person) {
+		return personDao.create(person);
 	}
 
 	@Override
-	public Person update(final Person person) {
+	public Person updatePerson(final Person person) {
 		verifyPesel(person.getPesel());
-		// TODO Auto-generated method stub
-		return null;
+		return personDao.update(person);
 	}
 
 	@Override
 	public InsuranceStatus getInsuranceStatus(final String pesel) {
 		verifyPesel(pesel);
-		TypedQuery<Person> query = em.createNamedQuery(Person.GET_BY_PESEL, Person.class);
-		query.setParameter("pesel", pesel);
-		List<Person> list = query.getResultList();
-
+		List<Person> list = personDao.getByPesel(pesel);
 		checkSinglePersonList(list);
-
 		return list.get(0).getInsuranceStatus();
 	}
 
-	public void checkSinglePersonList(final List<Person> list) {
+	public boolean checkSinglePersonList(final List<Person> list) {
 		if (list.isEmpty()) {
 			throw new NoSuchPersonException();
 		}
@@ -62,6 +53,8 @@ public class PersonServiceImpl implements PersonService {
 		if (list.size() > 1) {
 			throw new AmbiguousPeselException();
 		}
+		
+		return true;
 	}
 
 	@Override
@@ -69,11 +62,14 @@ public class PersonServiceImpl implements PersonService {
 		return personDao.getAll();
 	}
 
-	public void verifyPesel(final String pesel) {
+	public boolean verifyPesel(final String pesel) {
 		peselValidator.validate(pesel);
+
 		if (!peselValidator.isValid()) {
 			throw new IllegalPeselNumberException();
 		}
+
+		return true;
 
 	}
 

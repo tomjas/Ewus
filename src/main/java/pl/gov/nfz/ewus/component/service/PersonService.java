@@ -6,9 +6,9 @@ import pl.gov.nfz.ewus.model.InsuranceStatus;
 import pl.gov.nfz.ewus.model.Person;
 
 public interface PersonService {
-	Person register(Person person);
+	Person registerPerson(Person person);
 
-	Person update(Person person);
+	Person updatePerson(Person person);
 
 	List<Person> getAllRegisteredPeople();
 

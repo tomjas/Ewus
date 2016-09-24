@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 public interface GenericDao<T extends Serializable> {
 
 	long countAll(Map<String, Object> params);
@@ -12,7 +16,7 @@ public interface GenericDao<T extends Serializable> {
 
 	T create(T t);
 
-	void delete(Serializable id);
+	void delete(T t);
 
 	T find(Serializable id);
 

@@ -29,14 +29,14 @@ public class PersonREST {
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> registerPerson(@RequestBody final Person person) {
-		Person registeredPerson = personService.register(person);
+		Person registeredPerson = personService.registerPerson(person);
 		return new ResponseEntity<Person>(registeredPerson, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Person> updatePerson(@RequestBody final Person person) {
-		Person updatedPerson = personService.update(person);
+		Person updatedPerson = personService.updatePerson(person);
 		return new ResponseEntity<Person>(updatedPerson, HttpStatus.OK);
 	}
 

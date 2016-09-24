@@ -1,5 +1,5 @@
 package pl.gov.nfz.ewus.model;
 
-public class Role {
-
+public enum Role {
+	
 }

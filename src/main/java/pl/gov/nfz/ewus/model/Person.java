@@ -23,7 +23,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "ewus_person")
 @Entity
 @NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "SELECT p FROM Person p WHERE p.pesel = :pesel"),
-		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p FROM Person p WHERE p.id = :id") })
+		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p FROM Person p WHERE p.id = :id"),
+		@NamedQuery(name = Person.GET_BY_INSURANCE_STATUS,
+				query = "FROM Person p WHERE p.insuranceStatus = :insuranceStatus") })
 public class Person implements Serializable {
 
 	/**
@@ -32,6 +34,7 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 7786622396480067538L;
 	public static final String GET_BY_PESEL = "getByPesel";
 	public static final String GET_BY_ID = "getById";
+	public static final String GET_BY_INSURANCE_STATUS = "getByInsuranceStatus";
 
 	public Person() {
 		// TODO Auto-generated constructor stub

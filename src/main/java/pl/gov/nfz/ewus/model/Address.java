@@ -1,14 +1,27 @@
 package pl.gov.nfz.ewus.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-@Embeddable
-public class Address {
+/**
+ * @author Tomasz Jasiński
+ *
+ */
+@Table(name = "ewus_address")
+@Entity
+public class Address extends BaseEntity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3507187855954930912L;
 
 	@Column(name = "country")
 	private String country;

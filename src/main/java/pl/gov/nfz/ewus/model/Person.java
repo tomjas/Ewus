@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,13 +18,17 @@ import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 @Table(name = "ewus_person")
 @Entity
 @NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "SELECT p FROM Person p WHERE p.pesel = :pesel"),
 		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p FROM Person p WHERE p.id = :id"),
 		@NamedQuery(name = Person.GET_BY_INSURANCE_STATUS,
 				query = "FROM Person p WHERE p.insuranceStatus = :insuranceStatus") })
-public class Person implements Serializable {
+public class Person extends BaseEntity implements Serializable {
 
 	/**
 	 * 
@@ -44,11 +46,6 @@ public class Person implements Serializable {
 		MALE, FEMALE, UNDEFINED;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Long id;
-
 	@Column(name = "pesel", length = 11)
 	@NotBlank
 	@Length(min = 11, max = 11)
@@ -62,7 +59,8 @@ public class Person implements Serializable {
 	@NotBlank
 	private String lastName;
 
-	@Embedded
+	@ManyToOne
+	@JoinColumn(name = "address_id")
 	private Address address;
 
 	@Column(name = "role")
@@ -83,14 +81,6 @@ public class Person implements Serializable {
 
 	@Column(name = "is_living")
 	private boolean living;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;

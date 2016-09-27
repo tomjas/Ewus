@@ -28,6 +28,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 @Configuration
 @ComponentScan(basePackages = "pl.gov.nfz.ewus")
 @EnableWebMvc
@@ -42,7 +46,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
 	public ViewResolver getViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
+		resolver.setSuffix(".html");
 		return resolver;
 	}
 
@@ -70,7 +74,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
 		emf.setPackagesToScan("pl.gov.nfz.ewus.model");
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		emf.setJpaVendorAdapter(vendorAdapter);
-		// emf.setJpaProperties(additionalProperties());
+		emf.setJpaProperties(additionalProperties());
 		return emf;
 	}
 
@@ -100,8 +104,8 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
 	Properties additionalProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "create");
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-		properties.setProperty("hibernate.show_sql", "false");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
+		properties.setProperty("hibernate.show_sql", "true");
 		return properties;
 	}
 

@@ -1,4 +1,4 @@
-package pl.gov.nfz.ewus.component.controller.restcontroller;
+package pl.gov.nfz.ewus.component.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

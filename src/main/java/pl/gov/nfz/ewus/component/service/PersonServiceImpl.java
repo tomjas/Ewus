@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import pl.gov.nfz.ewus.component.PeselValidator;
 import pl.gov.nfz.ewus.component.repository.PersonDao;
@@ -26,11 +27,13 @@ public class PersonServiceImpl implements PersonService {
 	@Autowired
 	private PeselValidator peselValidator;
 
+	@Transactional
 	@Override
 	public Person registerPerson(final Person person) {
 		return personDao.create(person);
 	}
 
+	@Transactional
 	@Override
 	public Person updatePerson(final Person person) {
 		verifyPesel(person.getPesel());
@@ -47,11 +50,11 @@ public class PersonServiceImpl implements PersonService {
 
 	public boolean checkSinglePersonList(final List<Person> list) {
 		if (list.isEmpty()) {
-			throw new NoSuchPersonException();
+			throw new NoSuchPersonException("pesel.no.such.person");
 		}
 
 		if (list.size() > 1) {
-			throw new AmbiguousPeselException();
+			throw new AmbiguousPeselException("pesel.ambiguous");
 		}
 		
 		return true;
@@ -66,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
 		peselValidator.validate(pesel);
 
 		if (!peselValidator.isValid()) {
-			throw new IllegalPeselNumberException();
+			throw new IllegalPeselNumberException("pesel.incorrect");
 		}
 
 		return true;

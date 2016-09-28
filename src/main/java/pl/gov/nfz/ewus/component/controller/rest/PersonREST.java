@@ -1,4 +1,4 @@
-package pl.gov.nfz.ewus.component.controller.restcontroller;
+package pl.gov.nfz.ewus.component.controller.rest;
 
 import java.util.List;
 

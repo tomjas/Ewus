@@ -1,7 +1,7 @@
 package pl.gov.nfz.ewus.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -73,11 +73,11 @@ public class Person extends BaseEntity implements Serializable {
 	@Column(name = "date_of_birth")
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotBlank
-	private Date dateOfBirth;
+	private LocalDateTime dateOfBirth;
 
 	@Column(name = "date_of_die")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dateOfDie;
+	private LocalDateTime dateOfDie;
 
 	@Column(name = "is_living")
 	private boolean living;
@@ -130,19 +130,19 @@ public class Person extends BaseEntity implements Serializable {
 		this.pesel = pesel;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDateTime getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDateTime dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Date getDateOfDie() {
+	public LocalDateTime getDateOfDie() {
 		return dateOfDie;
 	}
 
-	public void setDateOfDie(Date dateOfDie) {
+	public void setDateOfDie(LocalDateTime dateOfDie) {
 		this.dateOfDie = dateOfDie;
 	}
 

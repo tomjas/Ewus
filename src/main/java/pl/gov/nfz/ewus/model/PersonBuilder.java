@@ -1,7 +1,11 @@
 package pl.gov.nfz.ewus.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 public class PersonBuilder {
 
 	PersonBuilder personBuilder;
@@ -36,12 +40,12 @@ public class PersonBuilder {
 		return this;
 	}
 
-	public PersonBuilder withDateOfBirth(final Date date) {
+	public PersonBuilder withDateOfBirth(final LocalDateTime date) {
 		person.setDateOfBirth(date);
 		return this;
 	}
 
-	public PersonBuilder withDateOfDie(final Date date) {
+	public PersonBuilder withDateOfDie(final LocalDateTime date) {
 		person.setDateOfDie(date);
 		return this;
 	}

@@ -3,7 +3,7 @@
  */
 package pl.gov.nfz.ewus.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -27,7 +27,7 @@ public class BaseEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "creation_date")
-	private Date creationDate;
+	private LocalDateTime creationDate = LocalDateTime.now();
 
 	public Long getId() {
 		return id;
@@ -37,11 +37,11 @@ public class BaseEntity {
 		this.id = id;
 	}
 
-	public Date getCreationDate() {
+	public LocalDateTime getCreationDate() {
 		return creationDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
 	}
 

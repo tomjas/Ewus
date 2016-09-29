@@ -71,12 +71,10 @@ public class Person extends BaseEntity implements Serializable {
 	private InsuranceStatus insuranceStatus;
 
 	@Column(name = "date_of_birth")
-	@Temporal(TemporalType.TIMESTAMP)
 	@NotBlank
 	private LocalDateTime dateOfBirth;
 
 	@Column(name = "date_of_die")
-	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime dateOfDie;
 
 	@Column(name = "is_living")

@@ -25,7 +25,6 @@ public class BaseEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "creation_date")
 	private LocalDateTime creationDate = LocalDateTime.now();
 

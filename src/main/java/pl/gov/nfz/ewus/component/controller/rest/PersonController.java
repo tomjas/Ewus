@@ -15,7 +15,7 @@ import pl.gov.nfz.ewus.component.service.PersonService;
 import pl.gov.nfz.ewus.model.Person;
 
 @RestController
-public class PersonREST {
+public class PersonController {
 
 	@Autowired
 	PersonService personService;

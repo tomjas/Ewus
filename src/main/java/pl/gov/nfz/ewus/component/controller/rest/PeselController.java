@@ -13,12 +13,12 @@ import pl.gov.nfz.ewus.component.service.PersonService;
 import pl.gov.nfz.ewus.model.InsuranceStatus;
 
 @RestController
-public class PeselREST {
+public class PeselController {
 
 	@Autowired
 	private PersonService personService;
 
-	public PeselREST() {
+	public PeselController() {
 		// TODO Auto-generated constructor stub
 	}
 

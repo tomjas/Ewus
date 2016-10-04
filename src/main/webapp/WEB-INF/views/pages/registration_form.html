@@ -1,0 +1,58 @@
+<div layout layout-align="center center" layout-margin>
+<div layout="column" class="md-whiteframe-z5">
+    <md-toolbar>
+      <h2 class="md-toolbar-tools"><span>Login</span></h2>
+    </md-toolbar>
+  <md-content class="md-padding" layout="column">
+<div layout-gt-xs="row" layout-xs="column">
+    <md-input-container>
+      <input ng-model="user.name" placeholder="Name" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+      <input ng-model="user.lastName" placeholder="Last Name" ng-required="true">
+    </md-input-container>
+</div>
+    <md-input-container>
+      <input ng-model="user.pesel" placeholder="Pesel" ng-required="true">
+    </md-input-container>
+
+<div layout-gt-xs="row" layout-xs="column">
+    <md-input-container>
+      <input ng-model="user.street" placeholder="Street" ng-required="true">
+    </md-input-container>
+    
+    <md-input-container>
+      <input ng-model="user.city" placeholder="City" ng-required="true">
+    </md-input-container>
+</div>
+<div layout-gt-xs="row" layout-xs="column">    
+    <md-input-container>
+      <input ng-model="user.home" placeholder="Home number" ng-required="true">
+    </md-input-container>
+
+	<md-input-container>
+      <input ng-model="user.apartment" placeholder="Apartment number">
+    </md-input-container>
+</div>
+<div layout-gt-xs="row" layout-xs="column">
+	<md-input-container>
+		<md-select ng-model="user.role" placeholder="Role">
+			<md-option ng-repeat="role in roles" value="{{role}}">
+				{{role}}
+			</md-option>
+		</md-select>
+	</md-input-container>
+</div>
+
+    <md-input-container>
+		<md-checkbox ng-model="user.insurance">
+		Insured
+		</md-checkbox>
+    </md-input-container>
+      <div layout="row" layout-align="space-around center" class="login-buttons">
+        <md-button class="md-raised md-primary">Register</md-button>
+        <md-button href="" class="md-raised">Clear</md-button>
+	  </div>
+  </md-content>
+  </div>
+</div>

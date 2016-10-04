@@ -1,0 +1,7 @@
+{
+	"links":[
+		{"name" : "Home","url": "/home"},
+		{"name" : "Register", "url" : "/register"},
+		{"name":"Test Connection", "url":"/checkConnection"}
+	]
+}

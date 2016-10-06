@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.gov.nfz.ewus.component.service.MessageBundleResourceServiceImpl;
+import pl.gov.nfz.ewus.component.service.MessageBundleResourceService;
 
 /**
  * @author Tomasz Jasiński
@@ -24,7 +24,7 @@ import pl.gov.nfz.ewus.component.service.MessageBundleResourceServiceImpl;
 public class MessageBundleController {
 
 	@Autowired
-	private MessageBundleResourceServiceImpl messageBundleResource;
+	private MessageBundleResourceService messageBundleResource;
 
 	@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Properties getMessageBundle(@RequestParam String lang) {

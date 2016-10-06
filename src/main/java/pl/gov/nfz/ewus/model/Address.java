@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,9 +22,6 @@ public class Address extends BaseEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -3507187855954930912L;
 
-	@Column(name = "country")
-	private String country;
-
 	@NotBlank
 	@Column(name = "city")
 	private String city;
@@ -39,20 +35,11 @@ public class Address extends BaseEntity implements Serializable {
 	private String street;
 
 	@NotBlank
-	@Min(1)
 	@Column(name = "house_number")
-	private Integer houseNumber;
+	private String houseNumber;
 
 	@Column(name = "apartment_number")
-	private Integer apartmentNumber;
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
+	private String apartmentNumber;
 
 	public String getCity() {
 		return city;
@@ -78,19 +65,20 @@ public class Address extends BaseEntity implements Serializable {
 		this.street = street;
 	}
 
-	public Integer getHouseNumber() {
+	public String getHouseNumber() {
 		return houseNumber;
 	}
 
-	public void setHouseNumber(Integer houseNumber) {
+	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
 	}
 
-	public Integer getApartmentNumber() {
+	public String getApartmentNumber() {
 		return apartmentNumber;
 	}
 
-	public void setApartmentNumber(Integer apartmentNumber) {
+	public void setApartmentNumber(String apartmentNumber) {
 		this.apartmentNumber = apartmentNumber;
 	}
+
 }

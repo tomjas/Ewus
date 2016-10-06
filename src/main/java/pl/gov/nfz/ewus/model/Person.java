@@ -7,13 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -59,26 +58,31 @@ public class Person extends BaseEntity implements Serializable {
 	@NotBlank
 	private String lastName;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
 	@Column(name = "role")
-	private Role role;
+	@Enumerated(EnumType.ORDINAL)
+	private Role role = Role.PERSON;
 
 	@Column(name = "is_insured")
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private InsuranceStatus insuranceStatus;
 
 	@Column(name = "date_of_birth")
-	@NotBlank
+	// @NotBlank
 	private LocalDateTime dateOfBirth;
 
 	@Column(name = "date_of_die")
 	private LocalDateTime dateOfDie;
 
 	@Column(name = "is_living")
-	private boolean living;
+	private Boolean living;
+
+	@Column(name = "sex")
+	@Enumerated(EnumType.ORDINAL)
+	private Sex sex;
 
 	public String getFirstName() {
 		return firstName;
@@ -144,12 +148,20 @@ public class Person extends BaseEntity implements Serializable {
 		this.dateOfDie = dateOfDie;
 	}
 
-	public boolean isLiving() {
+	public Boolean isLiving() {
 		return living;
 	}
 
-	public void setLiving(boolean living) {
+	public void setLiving(Boolean living) {
 		this.living = living;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
 	}
 
 }

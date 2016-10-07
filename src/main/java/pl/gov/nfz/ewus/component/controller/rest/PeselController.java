@@ -9,10 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.gov.nfz.ewus.component.service.PersonService;
-import pl.gov.nfz.ewus.model.InsuranceStatus;
+import com.fasterxml.jackson.annotation.JsonView;
 
+import pl.gov.nfz.ewus.component.service.PersonService;
+import pl.gov.nfz.ewus.model.Person;
+import pl.gov.nfz.ewus.model.view.HealthCareProvider;
+
+/**
+ * @author Tomasz Jasiński
+ *
+ */
 @RestController
+@RequestMapping(value = "/pesel", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+		produces = MediaType.APPLICATION_JSON_VALUE)
 public class PeselController {
 
 	@Autowired
@@ -22,16 +31,11 @@ public class PeselController {
 		// TODO Auto-generated constructor stub
 	}
 
-	@RequestMapping(value = "/isInsured", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<InsuranceStatus> isInsured(@RequestBody final String pesel) {
-		InsuranceStatus status = personService.getInsuranceStatus(pesel);
-		return new ResponseEntity<InsuranceStatus>(status, HttpStatus.OK);
-	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/checkConnection")
-	public String checkConnection() {
-		return "OK";
+	@JsonView(HealthCareProvider.class)
+	@RequestMapping
+	public ResponseEntity<Person> isInsured(@RequestBody Person person) {
+		Person dbPerson = personService.getByPesel(person.getPesel());
+		return new ResponseEntity<Person>(dbPerson, HttpStatus.OK);
 	}
 
 }

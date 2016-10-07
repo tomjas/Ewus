@@ -21,4 +21,11 @@ public class PersonDaoImpl extends GenericDaoImpl<Person> implements PersonDao {
 		query.setParameter("pesel", pesel);
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Person> getByIdWithDetails(Long id) {
+		TypedQuery<Person> query = em.createNamedQuery(Person.GET_BY_ID_WITH_DETAILS, Person.class);
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
 }

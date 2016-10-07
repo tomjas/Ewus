@@ -15,7 +15,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
+import pl.gov.nfz.ewus.model.view.Admin;
+import pl.gov.nfz.ewus.model.view.HealthCareProvider;
+import pl.gov.nfz.ewus.model.view.Operator;
 
 /**
  * @author Tomasz Jasiński
@@ -23,10 +31,12 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Table(name = "ewus_person")
 @Entity
-@NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "SELECT p FROM Person p WHERE p.pesel = :pesel"),
-		@NamedQuery(name = Person.GET_BY_ID, query = "SELECT p FROM Person p WHERE p.id = :id"),
+@NamedQueries({ @NamedQuery(name = Person.GET_BY_PESEL, query = "FROM Person p WHERE p.pesel = :pesel"),
+		@NamedQuery(name = Person.GET_BY_ID, query = "FROM Person p WHERE p.id = :id"),
 		@NamedQuery(name = Person.GET_BY_INSURANCE_STATUS,
-				query = "FROM Person p WHERE p.insuranceStatus = :insuranceStatus") })
+				query = "FROM Person p WHERE p.insuranceStatus = :insuranceStatus"),
+		@NamedQuery(name = Person.GET_BY_ID_WITH_DETAILS,
+				query = "FROM Person p LEFT JOIN FETCH p.address a WHERE p.id = :id") })
 public class Person extends BaseEntity implements Serializable {
 
 	/**
@@ -35,6 +45,7 @@ public class Person extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 7786622396480067538L;
 	public static final String GET_BY_PESEL = "getByPesel";
 	public static final String GET_BY_ID = "getById";
+	public static final String GET_BY_ID_WITH_DETAILS = "getByIdWithDetails";
 	public static final String GET_BY_INSURANCE_STATUS = "getByInsuranceStatus";
 
 	public Person() {
@@ -45,41 +56,54 @@ public class Person extends BaseEntity implements Serializable {
 		MALE, FEMALE, UNDEFINED;
 	}
 
+	@JsonView(Operator.class)
+	private Long id;
+
+	@JsonView(Operator.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	private LocalDateTime creationDate;
+
+	@JsonView(Operator.class)
 	@Column(name = "pesel", length = 11)
-	@NotBlank
 	@Length(min = 11, max = 11)
 	private String pesel;
 
+	@JsonView(Operator.class)
 	@Column(name = "first_name")
-	@NotBlank
 	private String firstName;
 
+	@JsonView(Operator.class)
 	@Column(name = "last_name")
-	@NotBlank
 	private String lastName;
 
+	@JsonView(Operator.class)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
+	@JsonView(Admin.class)
 	@Column(name = "role")
 	@Enumerated(EnumType.ORDINAL)
 	private Role role = Role.PERSON;
 
+	@JsonView(HealthCareProvider.class)
 	@Column(name = "is_insured")
 	@Enumerated(EnumType.ORDINAL)
 	private InsuranceStatus insuranceStatus;
 
+	@JsonView(Operator.class)
 	@Column(name = "date_of_birth")
-	// @NotBlank
 	private LocalDateTime dateOfBirth;
 
+	@JsonView(Operator.class)
 	@Column(name = "date_of_die")
 	private LocalDateTime dateOfDie;
 
+	@JsonView(Operator.class)
 	@Column(name = "is_living")
 	private Boolean living;
 
+	@JsonView(Operator.class)
 	@Column(name = "sex")
 	@Enumerated(EnumType.ORDINAL)
 	private Sex sex;

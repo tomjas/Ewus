@@ -159,6 +159,14 @@
 		    <version>2.8.3</version>
 		</dependency>
 		
+		<!-- For proper conversion Java 8 Date to json property -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.datatype</groupId>
+		    <artifactId>jackson-datatype-jsr310</artifactId>
+		    <version>2.8.3</version>
+		</dependency>
+		
 	
 	</dependencies>
 	

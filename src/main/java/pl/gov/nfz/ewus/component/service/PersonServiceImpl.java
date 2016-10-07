@@ -11,7 +11,6 @@ import pl.gov.nfz.ewus.component.repository.PersonDao;
 import pl.gov.nfz.ewus.exception.AmbiguousPeselException;
 import pl.gov.nfz.ewus.exception.IllegalPeselNumberException;
 import pl.gov.nfz.ewus.exception.NoSuchPersonException;
-import pl.gov.nfz.ewus.model.InsuranceStatus;
 import pl.gov.nfz.ewus.model.Person;
 
 /**
@@ -41,11 +40,11 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public InsuranceStatus getInsuranceStatus(final String pesel) {
+	public Person getByPesel(final String pesel) {
 		verifyPesel(pesel);
 		List<Person> list = personDao.getByPesel(pesel);
 		checkSinglePersonList(list);
-		return list.get(0).getInsuranceStatus();
+		return list.get(0);
 	}
 
 	public boolean checkSinglePersonList(final List<Person> list) {
@@ -56,7 +55,7 @@ public class PersonServiceImpl implements PersonService {
 		if (list.size() > 1) {
 			throw new AmbiguousPeselException("pesel.ambiguous");
 		}
-		
+
 		return true;
 	}
 
@@ -74,6 +73,17 @@ public class PersonServiceImpl implements PersonService {
 
 		return true;
 
+	}
+
+	@Override
+	public Person getPersonDetails(Long personId) {
+
+		List<Person> list = personDao.getByIdWithDetails(personId);
+		if (list.isEmpty()) {
+			throw new NoSuchPersonException();
+		}
+
+		return list.get(0);
 	}
 
 }

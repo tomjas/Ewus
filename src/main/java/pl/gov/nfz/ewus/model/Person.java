@@ -17,8 +17,6 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import pl.gov.nfz.ewus.model.view.HealthCareProvider;
 import pl.gov.nfz.ewus.model.view.Operator;
@@ -57,13 +55,6 @@ public class Person extends BaseEntity implements Serializable {
 	public enum InsuranceStatus {
 		YES, NO, UNDEFINED;
 	}
-
-	@JsonView(Operator.class)
-	private Long id;
-
-	@JsonView(Operator.class)
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime creationDate;
 
 	@JsonView(Operator.class)
 	@Column(name = "pesel", length = 11)

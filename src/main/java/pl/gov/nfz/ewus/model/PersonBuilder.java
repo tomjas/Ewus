@@ -2,6 +2,8 @@ package pl.gov.nfz.ewus.model;
 
 import java.time.LocalDateTime;
 
+import pl.gov.nfz.ewus.model.Person.InsuranceStatus;
+
 /**
  * @author Tomasz Jasiński
  *
@@ -27,11 +29,6 @@ public class PersonBuilder {
 
 	public PersonBuilder withPesel(final String pesel) {
 		person.setPesel(pesel);
-		return this;
-	}
-
-	public PersonBuilder withRole(final Role role) {
-		person.setRole(role);
 		return this;
 	}
 

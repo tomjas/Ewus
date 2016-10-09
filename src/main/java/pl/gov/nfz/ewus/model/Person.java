@@ -17,11 +17,9 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-import pl.gov.nfz.ewus.model.view.Admin;
 import pl.gov.nfz.ewus.model.view.HealthCareProvider;
 import pl.gov.nfz.ewus.model.view.Operator;
 
@@ -56,6 +54,10 @@ public class Person extends BaseEntity implements Serializable {
 		MALE, FEMALE, UNDEFINED;
 	}
 
+	public enum InsuranceStatus {
+		YES, NO, UNDEFINED;
+	}
+
 	@JsonView(Operator.class)
 	private Long id;
 
@@ -80,11 +82,6 @@ public class Person extends BaseEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	private Address address;
-
-	@JsonView(Admin.class)
-	@Column(name = "role")
-	@Enumerated(EnumType.ORDINAL)
-	private Role role = Role.PERSON;
 
 	@JsonView(HealthCareProvider.class)
 	@Column(name = "is_insured")
@@ -130,14 +127,6 @@ public class Person extends BaseEntity implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public InsuranceStatus getInsuranceStatus() {

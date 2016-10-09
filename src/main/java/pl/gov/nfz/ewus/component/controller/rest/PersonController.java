@@ -46,6 +46,13 @@ public class PersonController {
 
 	@JsonView(Operator.class)
 	@RequestMapping(value = "/{personId}", method = RequestMethod.GET)
+	public ResponseEntity<Person> getPerson(@PathVariable Long personId) {
+		Person person = personService.getById(personId);
+		return new ResponseEntity<Person>(person, HttpStatus.OK);
+	}
+
+	@JsonView(Operator.class)
+	@RequestMapping(value = "/{personId}/details", method = RequestMethod.GET)
 	public ResponseEntity<Person> getPersonDetails(@PathVariable Long personId) {
 		Person person = personService.getPersonDetails(personId);
 		return new ResponseEntity<Person>(person, HttpStatus.OK);

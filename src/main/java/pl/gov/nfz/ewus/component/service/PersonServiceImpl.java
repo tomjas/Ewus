@@ -1,6 +1,7 @@
 package pl.gov.nfz.ewus.component.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,13 @@ public class PersonServiceImpl implements PersonService {
 		}
 
 		return list.get(0);
+	}
+
+	@Override
+	public Person getById(Long personId) {
+
+		Optional<Person> person = personDao.find(personId);
+		return person.orElseThrow(NoSuchPersonException::new);
 	}
 
 }

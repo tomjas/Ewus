@@ -15,4 +15,6 @@ public interface PersonService {
 
 	Person getPersonDetails(Long id);
 
+	Person getById(Long personId);
+
 }

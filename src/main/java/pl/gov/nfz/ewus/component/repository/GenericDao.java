@@ -3,6 +3,7 @@ package pl.gov.nfz.ewus.component.repository;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Tomasz Jasiński
@@ -18,7 +19,7 @@ public interface GenericDao<T extends Serializable> {
 
 	void delete(T t);
 
-	T find(Serializable id);
+	Optional<T> find(Serializable id);
 
 	T update(T t);
 

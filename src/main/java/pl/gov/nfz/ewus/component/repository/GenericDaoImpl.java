@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,8 +53,8 @@ public abstract class GenericDaoImpl<T extends Serializable> implements GenericD
 	}
 
 	@Override
-	public T find(final Serializable id) {
-		return em.find(entityClass, id);
+	public Optional<T> find(final Serializable id) {
+		return Optional.ofNullable(em.find(entityClass, id));
 	}
 
 	@Override

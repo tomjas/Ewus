@@ -1,7 +1,24 @@
 {
-	"links":[
-		{"name" : "Home","url": "/home"},
-		{"name" : "Register", "url" : "/register"},
-		{"name":"Test Connection", "url":"/checkConnection"}
+	"links": [
+		{
+			"name": "Home",
+			"url": "/"
+		},
+		{
+			"name": "Register",
+			"url": "/register"
+		},
+		{
+			"name": "Test Connection",
+			"url": "/checkConnection"
+		},
+		{
+			"name": "Login",
+			"url": "/login"
+		},
+		{
+			"name": "People",
+			"url": "/people"
+		}
 	]
 }

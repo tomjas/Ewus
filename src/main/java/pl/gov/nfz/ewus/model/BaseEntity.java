@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -33,9 +34,14 @@ public class BaseEntity {
 	@Column(name = "creation_date")
 	@JsonView(Operator.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime creationDate = LocalDateTime.now();
 
-	// TODO Add modification date;
+	@Column(name = "last_modification_date")
+	@JsonView(Operator.class)
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime lastModificationDate = LocalDateTime.now();
 
 	public Long getId() {
 		return id;
@@ -51,6 +57,14 @@ public class BaseEntity {
 
 	public void setCreationDate(LocalDateTime creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public LocalDateTime getLastModificationDate() {
+		return lastModificationDate;
+	}
+
+	public void setLastModificationDate(LocalDateTime lastModificationDate) {
+		this.lastModificationDate = lastModificationDate;
 	}
 
 }

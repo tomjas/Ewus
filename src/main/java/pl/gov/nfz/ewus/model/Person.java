@@ -16,7 +16,10 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import pl.gov.nfz.ewus.model.view.HealthCareProvider;
 import pl.gov.nfz.ewus.model.view.Operator;
@@ -81,10 +84,14 @@ public class Person extends BaseEntity implements Serializable {
 
 	@JsonView(Operator.class)
 	@Column(name = "date_of_birth")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateOfBirth;
 
 	@JsonView(Operator.class)
 	@Column(name = "date_of_die")
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateOfDie;
 
 	@JsonView(Operator.class)
